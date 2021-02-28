@@ -9,7 +9,11 @@ import java.time.LocalDate;
 
 public class ProcessadorBoletos {
 	
-	public boolean processa(Fatura f, ArrayList<Boleto> b) {
+	public boolean processa(Fatura f, ArrayList<Boleto> b) {		
+		if(f.getTotal() == 0) {			
+			f.setIsPaga(true);
+		}
+		
 		double somaBoletos = 0;
 		for(Boleto bol:b) {
 			HashMap<String, Object> pag = new HashMap<String, Object>();
@@ -18,15 +22,12 @@ public class ProcessadorBoletos {
 			pag.put("tipo", "BOLETO");
 			f.adicionaPagamento(pag);
 			somaBoletos += bol.getValorPago();
+			
+			if(!f.getIsPaga() && somaBoletos >= f.getTotal()) {				
+				f.setIsPaga(true);
+			}
 		}
 		
-		if(f.getTotal() == 0) {
-			f.setIsPaga(true);
-		}
-		
-		if(somaBoletos >= f.getTotal()) {
-			f.setIsPaga(true);
-		}
-		return true;
+		return f.getIsPaga();
 	}
 }

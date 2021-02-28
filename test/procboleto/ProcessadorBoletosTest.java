@@ -2,6 +2,7 @@ package procboleto;
 
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
@@ -45,7 +46,7 @@ public class ProcessadorBoletosTest {
 		// Cria um boleto.
 		Boleto bol = geraBoleto("0123456789", 500.00);
 		boletos.add(bol);
-		// Cria uma fatura de valor 0.			
+		// Cria uma fatura.			
 		Fatura fat = new Fatura("Jose", geraData(), 0.00);
 		// Processa a fatura.
 		procbol.processa(fat, boletos);
@@ -59,7 +60,7 @@ public class ProcessadorBoletosTest {
 		// Cria um boleto.
 		Boleto bol = geraBoleto("0123456789", 500.00);
 		boletos.add(bol);
-		// Cria uma fatura de valor 0.			
+		// Cria uma fatura.			
 		Fatura fat = new Fatura("Jose", geraData(), 500.00);
 		// Processa a fatura.
 		procbol.processa(fat, boletos);
@@ -75,7 +76,7 @@ public class ProcessadorBoletosTest {
 		Boleto bol2 = geraBoleto("0122334444", 750.00);
 		boletos.add(bol);
 		boletos.add(bol2);
-		// Cria uma fatura de valor 0.			
+		// Cria uma Fatura		
 		Fatura fat = new Fatura("Jose", geraData(), 500.00);
 		// Processa a fatura.
 		procbol.processa(fat, boletos);
@@ -83,5 +84,20 @@ public class ProcessadorBoletosTest {
 		assertEquals(fat.getPagamentos().size(), 2);
 	}
 	
+	@DisplayName("[Teste 4] Nao paga a fatura se o valor for insuficiente")
+	@Test
+	public void faturaValorInsuficiente() {
+		// Cria um boleto.
+		Boleto bol = geraBoleto("0123456789", 500.00);
+		Boleto bol2 = geraBoleto("0122334444", 750.00);
+		boletos.add(bol);
+		boletos.add(bol2);
+		// Cria uma fatura de valor 0.			
+		Fatura fat = new Fatura("Jose", geraData(), 5000.00);
+		// Processa a fatura.
+		procbol.processa(fat, boletos);
+		assertFalse(fat.getIsPaga());
+		assertEquals(fat.getPagamentos().size(), 2);
+	}
 }
 
