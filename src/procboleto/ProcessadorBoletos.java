@@ -24,7 +24,7 @@ public class ProcessadorBoletos {
 			f.setIsPaga(true);
 		}
 		
-		if(somaBoletos == f.getTotal()) {
+		if(somaBoletos >= f.getTotal()) {
 			f.setIsPaga(true);
 		}
 		return true;

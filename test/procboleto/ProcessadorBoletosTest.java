@@ -66,5 +66,22 @@ public class ProcessadorBoletosTest {
 		assertTrue(fat.getIsPaga());
 		assertEquals(fat.getPagamentos().size(), 1);
 	}
+	
+	@DisplayName("[Teste 3] Paga a fatura quando a soma dos boletos ultrapassa o valor da fatura")
+	@Test
+	public void pagaFaturaBoletoUltrapassa() {
+		// Cria um boleto.
+		Boleto bol = geraBoleto("0123456789", 500.00);
+		Boleto bol2 = geraBoleto("0122334444", 750.00);
+		boletos.add(bol);
+		boletos.add(bol2);
+		// Cria uma fatura de valor 0.			
+		Fatura fat = new Fatura("Jose", geraData(), 500.00);
+		// Processa a fatura.
+		procbol.processa(fat, boletos);
+		assertTrue(fat.getIsPaga());
+		assertEquals(fat.getPagamentos().size(), 2);
+	}
+	
 }
 
