@@ -64,6 +64,7 @@ public class ProcessadorBoletosTest {
 		// Processa a fatura.
 		procbol.processa(fat, boletos);
 		assertTrue(fat.getIsPaga());
+		assertEquals(fat.getPagamentos().size(), 1);
 	}
 }
 
