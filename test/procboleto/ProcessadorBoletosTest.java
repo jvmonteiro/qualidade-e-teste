@@ -52,5 +52,18 @@ public class ProcessadorBoletosTest {
 		assertTrue(fat.getIsPaga());
 		assertEquals(fat.getPagamentos().size(), 1);
 	}
+	
+	@DisplayName("[Teste 2] Paga a fatura quando seu valor eh maior do que zero")
+	@Test
+	public void pagaFaturaMaiorQueZero() {
+		// Cria um boleto.
+		Boleto bol = geraBoleto("0123456789", 500.00);
+		boletos.add(bol);
+		// Cria uma fatura de valor 0.			
+		Fatura fat = new Fatura("Jose", geraData(), 500.00);
+		// Processa a fatura.
+		procbol.processa(fat, boletos);
+		assertTrue(fat.getIsPaga());
+	}
 }
 
