@@ -21,6 +21,7 @@ public class Fatura {
 		this.total = valorTotal;
 		this.cliente = nomeCliente;
 		this.isPaga = false;
+		this.pagamentos = new ArrayList<HashMap<String, Object>>(); 
 	}
 	
 	public double getTotal() {
@@ -37,5 +38,9 @@ public class Fatura {
 	
 	public void adicionaPagamento(HashMap<String, Object> pag) {
 		pagamentos.add(pag);
+	}
+	
+	public ArrayList<HashMap<String, Object>> getPagamentos() {
+		return this.pagamentos;
 	}
 }

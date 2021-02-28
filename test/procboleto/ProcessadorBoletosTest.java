@@ -2,6 +2,7 @@ package procboleto;
 
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +50,7 @@ public class ProcessadorBoletosTest {
 		// Processa a fatura.
 		procbol.processa(fat, boletos);
 		assertTrue(fat.getIsPaga());
+		assertEquals(fat.getPagamentos().size(), 1);
 	}
 }
 
