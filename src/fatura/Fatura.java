@@ -1,6 +1,9 @@
 package fatura;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Fatura {
 	// Campos basicos
 	String cliente;
@@ -9,6 +12,9 @@ public class Fatura {
 	
 	// Flag para a fatura paga	
 	boolean isPaga;
+	
+	// Hashmap de pagamentos
+	ArrayList<HashMap<String, Object>> pagamentos;
 	
 	public Fatura(String nomeCliente, LocalDate data, double valorTotal){
 		this.data = data;
@@ -27,5 +33,9 @@ public class Fatura {
 	
 	public boolean getIsPaga() {
 		return this.isPaga;
+	}
+	
+	public void adicionaPagamento(HashMap<String, Object> pag) {
+		pagamentos.add(pag);
 	}
 }

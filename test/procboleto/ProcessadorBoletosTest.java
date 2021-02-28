@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.ArrayList;
 public class ProcessadorBoletosTest {
 	ProcessadorBoletos procbol;
-	
+	ArrayList<Boleto> boletos; 
 	public LocalDate geraData() {
 		Random random = new Random();
 		int minDay = (int) LocalDate.of(1900, 1, 1).toEpochDay();
@@ -24,24 +24,28 @@ public class ProcessadorBoletosTest {
 		LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
 		return randomDate;
 	}
+	
+	public Boleto geraBoleto(String cod, double valor) {
+		LocalDate data = geraData();
+		Boleto bol = new Boleto(cod, data, valor);
+		return bol;
+	}
+	
 	@BeforeEach
 	public void inicializa() {
 		procbol = new ProcessadorBoletos();
+		boletos = new ArrayList<Boleto>();
 	}
 	
 	
 	@DisplayName("[Teste 1] Paga a fatura quando seu valor eh zero")
 	@Test
 	public void pagaFaturaZero() {
-		// Cria um boleto.		
-		String cod1 = "0123456789";
-		LocalDate d1 = geraData();
-		double valor = 500.00;
-		Boleto bol = new Boleto(cod1, d1, valor);
-		ArrayList<Boleto> boletos = new ArrayList<Boleto>();
+		// Cria um boleto.
+		Boleto bol = geraBoleto("0123456789", 500.00);
 		boletos.add(bol);
 		// Cria uma fatura de valor 0.			
-		Fatura fat = new Fatura("Jose", d1, 0.00);
+		Fatura fat = new Fatura("Jose", geraData(), 0.00);
 		// Processa a fatura.
 		procbol.processa(fat, boletos);
 		assertTrue(fat.getIsPaga());
