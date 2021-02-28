@@ -1,12 +1,12 @@
 package boleto;
-import java.util.Date;
+import java.time.LocalDate;
 
-class Boleto {
+public class Boleto {
 	String codigo;
-	Date data;
+	LocalDate data;
 	double valorPago;
 	
-	Boleto(String cod, Date data, double valor) {
+	public Boleto(String cod, LocalDate data, double valor) {
 		this.codigo = cod;
 		this.data = data;
 		this.valorPago = valor;

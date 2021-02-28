@@ -1,16 +1,16 @@
 package fatura;
 
-import java.util.Date;
+import java.time.LocalDate;
 public class Fatura {
 	// Campos basicos
-	Date data;
-	double total;
 	String cliente;
+	LocalDate data;
+	double total;
 	
 	// Flag para a fatura paga	
 	boolean isPaga;
 	
-	Fatura(Date data, double valorTotal, String nomeCliente){
+	public Fatura(String nomeCliente, LocalDate data, double valorTotal){
 		this.data = data;
 		this.total = valorTotal;
 		this.cliente = nomeCliente;
@@ -23,5 +23,9 @@ public class Fatura {
 	
 	public void setIsPaga(boolean paga) {
 		this.isPaga = paga;
+	}
+	
+	public boolean getIsPaga() {
+		return this.isPaga;
 	}
 }
